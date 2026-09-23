@@ -1,5 +1,7 @@
 # Credit Card Customer & Financial Behavior Analytics
 
+🔗 **Live Demo:** https://credit-card-behavior.streamlit.app
+
 **Student:** NEERAJGIRI  
 **Internship:** AICTE | IBM SkillsBuild Data Analytics with AI Internship 2026
 
