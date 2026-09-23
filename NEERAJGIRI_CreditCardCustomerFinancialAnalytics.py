@@ -281,12 +281,12 @@ def render_overview(data: pd.DataFrame) -> None:
         return
     charts = overview_charts(data)
     left, right = st.columns(2)
-    left.plotly_chart(charts[0], use_container_width=True, key="overview_segments")
-    right.plotly_chart(charts[1], use_container_width=True, key="overview_utilization")
-    left.plotly_chart(charts[2], use_container_width=True, key="overview_purchases_limit")
-    right.plotly_chart(charts[3], use_container_width=True, key="overview_balance_limit")
-    left.plotly_chart(charts[4], use_container_width=True, key="overview_credit_limit")
-    right.plotly_chart(charts[5], use_container_width=True, key="overview_balance")
+    left.plotly_chart(charts[0], width="stretch", key="overview_segments")
+    right.plotly_chart(charts[1], width="stretch", key="overview_utilization")
+    left.plotly_chart(charts[2], width="stretch", key="overview_purchases_limit")
+    right.plotly_chart(charts[3], width="stretch", key="overview_balance_limit")
+    left.plotly_chart(charts[4], width="stretch", key="overview_credit_limit")
+    right.plotly_chart(charts[5], width="stretch", key="overview_balance")
     st.subheader("Key Insights")
     for insight in business_insights(data):
         st.info(insight)
@@ -298,12 +298,12 @@ def render_spending(data: pd.DataFrame) -> None:
         empty_message()
         return
     left, right = st.columns(2)
-    left.plotly_chart(chart_layout(px.histogram(data, x="PURCHASES", nbins=35, title="Purchases Distribution", labels={"PURCHASES": "Purchases", "count": "Customer Count"})), use_container_width=True, key="spending_purchases")
-    right.plotly_chart(chart_layout(px.histogram(data, x="PURCHASES_FREQUENCY", nbins=25, title="Purchases Frequency Distribution", labels={"PURCHASES_FREQUENCY": "Purchase Frequency", "count": "Customer Count"})), use_container_width=True, key="spending_frequency")
-    left.plotly_chart(chart_layout(px.scatter(data, x="PURCHASES", y="ONEOFF_PURCHASES", color="SEGMENT", title="One-off Purchases by Customer Segment", labels={"PURCHASES": "Total Purchases", "ONEOFF_PURCHASES": "One-off Purchases", "SEGMENT": "Customer Segment"})), use_container_width=True, key="spending_oneoff")
-    right.plotly_chart(chart_layout(px.scatter(data, x="PURCHASES", y="INSTALLMENTS_PURCHASES", color="SEGMENT", title="Installment Purchases by Customer Segment", labels={"PURCHASES": "Total Purchases", "INSTALLMENTS_PURCHASES": "Installment Purchases", "SEGMENT": "Customer Segment"})), use_container_width=True, key="spending_installments")
-    st.plotly_chart(chart_layout(px.scatter(data, x="TENURE", y="PURCHASES", color="SEGMENT", title="Tenure vs Spending by Customer Segment", labels={"TENURE": "Tenure (months)", "PURCHASES": "Purchases", "SEGMENT": "Customer Segment"})), use_container_width=True, key="spending_tenure")
-    st.plotly_chart(chart_layout(px.box(data, x="SEGMENT", y="CASH_ADVANCE", color="SEGMENT", title="Cash Advance by Segment", labels={"SEGMENT": "Customer Segment", "CASH_ADVANCE": "Cash Advance", "color": "Customer Segment"})), use_container_width=True, key="spending_cash_advance")
+    left.plotly_chart(chart_layout(px.histogram(data, x="PURCHASES", nbins=35, title="Purchases Distribution", labels={"PURCHASES": "Purchases", "count": "Customer Count"})), width="stretch", key="spending_purchases")
+    right.plotly_chart(chart_layout(px.histogram(data, x="PURCHASES_FREQUENCY", nbins=25, title="Purchases Frequency Distribution", labels={"PURCHASES_FREQUENCY": "Purchase Frequency", "count": "Customer Count"})), width="stretch", key="spending_frequency")
+    left.plotly_chart(chart_layout(px.scatter(data, x="PURCHASES", y="ONEOFF_PURCHASES", color="SEGMENT", title="One-off Purchases by Customer Segment", labels={"PURCHASES": "Total Purchases", "ONEOFF_PURCHASES": "One-off Purchases", "SEGMENT": "Customer Segment"})), width="stretch", key="spending_oneoff")
+    right.plotly_chart(chart_layout(px.scatter(data, x="PURCHASES", y="INSTALLMENTS_PURCHASES", color="SEGMENT", title="Installment Purchases by Customer Segment", labels={"PURCHASES": "Total Purchases", "INSTALLMENTS_PURCHASES": "Installment Purchases", "SEGMENT": "Customer Segment"})), width="stretch", key="spending_installments")
+    st.plotly_chart(chart_layout(px.scatter(data, x="TENURE", y="PURCHASES", color="SEGMENT", title="Tenure vs Spending by Customer Segment", labels={"TENURE": "Tenure (months)", "PURCHASES": "Purchases", "SEGMENT": "Customer Segment"})), width="stretch", key="spending_tenure")
+    st.plotly_chart(chart_layout(px.box(data, x="SEGMENT", y="CASH_ADVANCE", color="SEGMENT", title="Cash Advance by Segment", labels={"SEGMENT": "Customer Segment", "CASH_ADVANCE": "Cash Advance", "color": "Customer Segment"})), width="stretch", key="spending_cash_advance")
 
 
 def render_payment_credit(data: pd.DataFrame) -> None:
@@ -312,19 +312,19 @@ def render_payment_credit(data: pd.DataFrame) -> None:
         empty_message()
         return
     left, right = st.columns(2)
-    left.plotly_chart(chart_layout(px.scatter(data, x="PURCHASES", y="PAYMENTS", color="SEGMENT", title="Purchases vs Payments by Segment", labels={"PURCHASES": "Purchases", "PAYMENTS": "Payments", "SEGMENT": "Customer Segment"})), use_container_width=True, key="payment_purchases")
-    right.plotly_chart(chart_layout(px.scatter(data, x="CREDIT_LIMIT", y="BALANCE", color="SEGMENT", title="Balance vs Credit Limit by Segment", labels={"CREDIT_LIMIT": "Credit Limit", "BALANCE": "Balance", "SEGMENT": "Customer Segment"})), use_container_width=True, key="payment_balance_limit")
-    left.plotly_chart(chart_layout(px.histogram(data, x="PRC_FULL_PAYMENT", nbins=25, title="Full Payment Percentage Distribution", labels={"PRC_FULL_PAYMENT": "Full Payment Percentage", "count": "Customer Count"})), use_container_width=True, key="payment_full_percentage")
-    right.plotly_chart(chart_layout(px.histogram(data, x="PAYMENT_RATIO", nbins=35, title="Payment Ratio Distribution", labels={"PAYMENT_RATIO": "Payment Ratio", "count": "Customer Count"})), use_container_width=True, key="payment_ratio")
+    left.plotly_chart(chart_layout(px.scatter(data, x="PURCHASES", y="PAYMENTS", color="SEGMENT", title="Purchases vs Payments by Segment", labels={"PURCHASES": "Purchases", "PAYMENTS": "Payments", "SEGMENT": "Customer Segment"})), width="stretch", key="payment_purchases")
+    right.plotly_chart(chart_layout(px.scatter(data, x="CREDIT_LIMIT", y="BALANCE", color="SEGMENT", title="Balance vs Credit Limit by Segment", labels={"CREDIT_LIMIT": "Credit Limit", "BALANCE": "Balance", "SEGMENT": "Customer Segment"})), width="stretch", key="payment_balance_limit")
+    left.plotly_chart(chart_layout(px.histogram(data, x="PRC_FULL_PAYMENT", nbins=25, title="Full Payment Percentage Distribution", labels={"PRC_FULL_PAYMENT": "Full Payment Percentage", "count": "Customer Count"})), width="stretch", key="payment_full_percentage")
+    right.plotly_chart(chart_layout(px.histogram(data, x="PAYMENT_RATIO", nbins=35, title="Payment Ratio Distribution", labels={"PAYMENT_RATIO": "Payment Ratio", "count": "Customer Count"})), width="stretch", key="payment_ratio")
     correlation_columns = ["BALANCE", "PURCHASES", "CASH_ADVANCE", "CREDIT_LIMIT", "PAYMENTS", "PURCHASES_TRX", "CREDIT_UTILIZATION"]
     correlation = data[correlation_columns].corr()
-    st.plotly_chart(chart_layout(px.imshow(correlation, text_auto=".2f", color_continuous_scale="RdBu_r", zmin=-1, zmax=1, title="Correlation Heatmap of Key Financial Measures", labels={"x": "Financial Measure", "y": "Financial Measure", "color": "Correlation"})), use_container_width=True, key="payment_correlation")
+    st.plotly_chart(chart_layout(px.imshow(correlation, text_auto=".2f", color_continuous_scale="RdBu_r", zmin=-1, zmax=1, title="Correlation Heatmap of Key Financial Measures", labels={"x": "Financial Measure", "y": "Financial Measure", "color": "Correlation"})), width="stretch", key="payment_correlation")
     with st.expander("Matplotlib / Seaborn correlation view"):
         figure, axis = plt.subplots(figsize=(9, 5))
         sns.heatmap(correlation, cmap="vlag", center=0, annot=True, fmt=".2f", ax=axis)
         axis.set_title("Correlation Heatmap")
         st.pyplot(figure, clear_figure=True)
-    st.dataframe(data[["CUST_ID", "MINIMUM_PAYMENTS", "PAYMENTS", "BALANCE", "PAYMENT_RATIO"]].sort_values("MINIMUM_PAYMENTS", ascending=False).head(20), use_container_width=True, hide_index=True)
+    st.dataframe(data[["CUST_ID", "MINIMUM_PAYMENTS", "PAYMENTS", "BALANCE", "PAYMENT_RATIO"]].sort_values("MINIMUM_PAYMENTS", ascending=False).head(20), width="stretch", hide_index=True)
 
 
 def render_segments(data: pd.DataFrame) -> None:
@@ -334,10 +334,10 @@ def render_segments(data: pd.DataFrame) -> None:
         return
     summary = segment_summary(data)
     left, right = st.columns(2)
-    left.plotly_chart(chart_layout(px.bar(summary, x="SEGMENT", y="Customers", color="SEGMENT", title="Customer Count by Segment", labels={"SEGMENT": "Customer Segment", "Customers": "Customer Count", "color": "Customer Segment"})), use_container_width=True, key="segments_size")
-    right.plotly_chart(chart_layout(px.bar(summary, x="SEGMENT", y="Purchases", color="SEGMENT", title="Average Purchases by Segment", labels={"SEGMENT": "Customer Segment", "Purchases": "Average Purchases", "color": "Customer Segment"})), use_container_width=True, key="segments_purchases")
-    st.plotly_chart(chart_layout(px.bar(summary, x="SEGMENT", y=["Balance", "Credit_Limit", "Payments"], barmode="group", title="Average Balance, Credit Limit, and Payments by Segment", labels={"SEGMENT": "Customer Segment", "value": "Average Amount", "variable": "Financial Measure"})), use_container_width=True, key="segments_comparison")
-    st.dataframe(summary.style.format({"Customer Share": "{:.1%}", "Purchases": "${:,.2f}", "Balance": "${:,.2f}", "Credit_Limit": "${:,.2f}", "Payments": "${:,.2f}", "Utilization": "{:.2%}", "Cash_Advance": "${:,.2f}", "Purchase_Frequency": "{:.2%}", "Tenure": "{:.1f}"}), use_container_width=True, hide_index=True)
+    left.plotly_chart(chart_layout(px.bar(summary, x="SEGMENT", y="Customers", color="SEGMENT", title="Customer Count by Segment", labels={"SEGMENT": "Customer Segment", "Customers": "Customer Count", "color": "Customer Segment"})), width="stretch", key="segments_size")
+    right.plotly_chart(chart_layout(px.bar(summary, x="SEGMENT", y="Purchases", color="SEGMENT", title="Average Purchases by Segment", labels={"SEGMENT": "Customer Segment", "Purchases": "Average Purchases", "color": "Customer Segment"})), width="stretch", key="segments_purchases")
+    st.plotly_chart(chart_layout(px.bar(summary, x="SEGMENT", y=["Balance", "Credit_Limit", "Payments"], barmode="group", title="Average Balance, Credit Limit, and Payments by Segment", labels={"SEGMENT": "Customer Segment", "value": "Average Amount", "variable": "Financial Measure"})), width="stretch", key="segments_comparison")
+    st.dataframe(summary.style.format({"Customer Share": "{:.1%}", "Purchases": "${:,.2f}", "Balance": "${:,.2f}", "Credit_Limit": "${:,.2f}", "Payments": "${:,.2f}", "Utilization": "{:.2%}", "Cash_Advance": "${:,.2f}", "Purchase_Frequency": "{:.2%}", "Tenure": "{:.1f}"}), width="stretch", hide_index=True)
 
 
 def render_explorer(data: pd.DataFrame) -> None:
@@ -360,7 +360,7 @@ def render_explorer(data: pd.DataFrame) -> None:
     for column, (label, value) in zip(columns, explorer_metrics.items()):
         display = pct(value) if "Utilization" in label or "Frequency" in label else money(value)
         column.metric(label, display)
-    st.dataframe(pd.DataFrame({"Metric": ["Credit Limit", "Balance", "Purchases", "Payments", "Credit Utilization", "Purchase Frequency", "Cash Advance", "Tenure"], "Value": [money(customer.CREDIT_LIMIT), money(customer.BALANCE), money(customer.PURCHASES), money(customer.PAYMENTS), pct(customer.CREDIT_UTILIZATION), pct(customer.PURCHASES_FREQUENCY), money(customer.CASH_ADVANCE), f"{customer.TENURE:.0f} months"]}), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame({"Metric": ["Credit Limit", "Balance", "Purchases", "Payments", "Credit Utilization", "Purchase Frequency", "Cash Advance", "Tenure"], "Value": [money(customer.CREDIT_LIMIT), money(customer.BALANCE), money(customer.PURCHASES), money(customer.PAYMENTS), pct(customer.CREDIT_UTILIZATION), pct(customer.PURCHASES_FREQUENCY), money(customer.CASH_ADVANCE), f"{customer.TENURE:.0f} months"]}), width="stretch", hide_index=True)
 
 
 def render_data_quality(quality: Dict[str, object], data: pd.DataFrame) -> None:
@@ -376,7 +376,7 @@ def render_data_quality(quality: Dict[str, object], data: pd.DataFrame) -> None:
     for operation in quality["operations"]:
         st.write(f"- {operation}")
     with st.expander("Outlier flags (retained for analysis)"):
-        st.dataframe(iqr_outlier_counts(data, ["BALANCE", "PURCHASES", "CASH_ADVANCE", "CREDIT_UTILIZATION", "PAYMENTS"]), use_container_width=True, hide_index=True)
+        st.dataframe(iqr_outlier_counts(data, ["BALANCE", "PURCHASES", "CASH_ADVANCE", "CREDIT_UTILIZATION", "PAYMENTS"]), width="stretch", hide_index=True)
 
 
 def generate_project_report(data: pd.DataFrame, quality: Dict[str, object], output_path: Path = REPORT_PATH) -> None:
